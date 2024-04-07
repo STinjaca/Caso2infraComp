@@ -98,7 +98,7 @@ public class Main {
                     }
                 }
             }
-            
+            //Resultado
             for (int i = 0; i < numF; i++) {
                 for (int j = 0; j < numC; j++) {
                 	referencias.put("R[" + i + "][" + j + "]",numP + "," + despl);
