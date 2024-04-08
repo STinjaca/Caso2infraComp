@@ -48,14 +48,14 @@ public class TablaPaginas extends Thread {
                         fallosPagina++;
                         if (paginasOcupadas == numMarcosP) {
                         	//escoger pagina a reemplazar con el algoritmo paginaReemplazar;
-                        	int paginaReemplazar = algoritmo.pagAReemplazar(); 
-                        	//tablaPaginas.set(tablaPaginas.indexOf(paginaReemplazar), -404); //deja de existir en la tabla
-                        	tablaPaginas.set(paginaReemplazar, -404);
-                            tablaPaginas.set(pag, 1); // a la pag nueva le doy su posición
+                        	int paginaReemV = algoritmo.pagAReemplazar(); 
+                        	tablaPaginas.set(tablaPaginas.indexOf(paginaReemV), -404); //deja de existir en la tabla
+                            tablaPaginas.set(pag, paginaReemV); // a la pag nueva le doy su posición
                         } else {
-                        	tablaPaginas.set(pag,1);
+                        	tablaPaginas.set(pag,fallosPagina-1);
                             paginasOcupadas++;
                         }
+                        
                     }
                     algoritmo.marcarReferenciaPagina(tablaPaginas.get(pag),pagRef); //Se ajusta la pag al ser referenciada si se encuentra cargada
                 }
@@ -80,6 +80,5 @@ public class TablaPaginas extends Thread {
         int hits = numReferencias-fallosPagina;
         System.out.println("Hits: " + hits);
         System.out.println("Fallos: " + fallosPagina);
-        System.exit(0);
     }
 }

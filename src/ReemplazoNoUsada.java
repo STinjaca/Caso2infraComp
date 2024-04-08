@@ -31,28 +31,28 @@ public class ReemplazoNoUsada extends Thread{
 
     public int pagAReemplazar() {
     	synchronized (contadores) {
-            int[] candidato = new int[4];
-            for (int i = marcosPagina -1; i >= 0 ; i--) {
+            for (int i = 0 ; i < marcosPagina ; i++) {
                 if (contadores[i][0]==0 && contadores[i][1]==0) {
-                    candidato[0] = i+1;
-                }
-                else if(contadores[i][0]==0 && contadores[i][1]==1) {
-                	candidato[1] = i+1;
-                }
-                else if(contadores[i][0]==1 && contadores[i][1]==0 ) {
-                	candidato[2] = i+1;
-                }
-                else if(contadores[i][0]==1 && contadores[i][1]==1 ) {
-                	candidato[3] = i+1;
+                    return i;
                 }
             }
-            for(int i = 0; i<4;i++){
-                if(candidato[i] != 0){
-                    return candidato[i]-1;
+            for (int i = 0 ; i < marcosPagina ; i++) {
+                if (contadores[i][0]==0 && contadores[i][1]==1) {
+                    return i;
                 }
             }
-            return 0;
+            for (int i = 0 ; i < marcosPagina ; i++) {
+            	if(contadores[i][0]==1 && contadores[i][1]==0 ) {
+            		return i;
+                }
+            }
+            for (int i = 0 ; i < marcosPagina ; i++) {
+                if(contadores[i][0]==1 && contadores[i][1]==1 ) {
+                	return i;
+                }
+            }
         }
+    	return 0;
     }
 
     @Override

@@ -153,6 +153,12 @@ public class Main {
         System.out.println("Cálculo de datos realizado con éxito.");
         TablaPaginas tablaPaginas = new TablaPaginas(numMarcoP,nombreArchivo,numRef,numP);
         tablaPaginas.start();
+        try {
+			tablaPaginas.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     
