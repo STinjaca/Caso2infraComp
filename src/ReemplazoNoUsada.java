@@ -1,13 +1,13 @@
 
-public class Aging extends Thread{
-    private final int MARCOS_P;
+public class ReemplazoNoUsada extends Thread{
+    private int marcosPagina;
     private int[] contadores;
     
     
-    // Contructor método envejecimiento
-	public Aging(int numMarcosP) {
-        this.MARCOS_P = numMarcosP;
-        this.contadores = new int[MARCOS_P];
+    // Contructor método reemplazo
+	public ReemplazoNoUsada(int numMarcosP) {
+        this.marcosPagina = numMarcosP;
+        this.contadores = new int[marcosPagina];
 	}
 
     // ActualizarContadores

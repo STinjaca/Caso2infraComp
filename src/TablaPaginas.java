@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class TablaPaginas extends Thread {
 	private BufferedReader br;
     private ArrayList<Integer> tablaPaginas = new ArrayList<Integer>();
-    private Aging aging;
+    private ReemplazoNoUsada algoritmo;
     private int fallosPagina;
     private int numReferencias;
     private int numMarcosP;
@@ -20,8 +20,8 @@ public class TablaPaginas extends Thread {
         fallosPagina = 0;
         this.numReferencias = numReferencias;
         this.numPaginas = numPaginas;
-        aging = new Aging(numMarcosP);
-        aging.start();
+        algoritmo = new ReemplazoNoUsada(numMarcosP);
+        algoritmo.start();
         try {
             this.br = new BufferedReader(new FileReader(nombreArchivo));
         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class TablaPaginas extends Thread {
                         fallosPagina++;
                         if (paginasOcupadas == numMarcosP) {
                         	//escoger pagina a reemplazar con el algoritmo paginaReemplazar;
-                        	int paginaReemplazar = aging.pagAReemplazar(); 
+                        	int paginaReemplazar = algoritmo.pagAReemplazar(); 
                         	tablaPaginas.set(tablaPaginas.indexOf(paginaReemplazar), -404); //deja de existir en la tabla
                         	tablaPaginas.set(pag, paginaReemplazar); // a la pag nueva le doy su posición
                         } else {
@@ -52,7 +52,7 @@ public class TablaPaginas extends Thread {
 	                    	}
                         }
                     }
-                    aging.marcarReferenciaPagina(tablaPaginas.get(pag)); //Se ajusta la pag al ser referenciada si se encuentra cargada
+                    algoritmo.marcarReferenciaPagina(tablaPaginas.get(pag)); //Se ajusta la pag al ser referenciada si se encuentra cargada
                 }
             }
     
