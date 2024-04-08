@@ -151,6 +151,8 @@ public class Main {
             e.printStackTrace();
         }// Implementación del cálculo de datos aquí
         System.out.println("Cálculo de datos realizado con éxito.");
+        TablaPaginas tablaPaginas = new TablaPaginas(numMarcoP,nombreArchivo,numRef,numP);
+        tablaPaginas.start();
     }
     
     
@@ -185,7 +187,7 @@ public class Main {
                     System.out.print("Ingrese el nombre del archivo de referencias (doc/referencias.txt): ");
                     String nombreArchivo = scanner.nextLine();
                     calcularDatos(numMarcoP, nombreArchivo);
-                    System.out.println("");
+                    System.out.println("Calculando datos...");
                     break;
                 case 3:
                     System.out.println("Saliendo del programa...");
