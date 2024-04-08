@@ -52,11 +52,15 @@ public class TablaPaginas extends Thread {
                         	tablaPaginas.set(tablaPaginas.indexOf(paginaReemplazar), -404); //deja de existir en la tabla
                         	tablaPaginas.set(pag, paginaReemplazar); // a la pag nueva le doy su posición
                         } else {
-	                    	for (int i = 0; i < numPaginas;i++){
+                        	//int paginaReemplazar = algoritmo.pagAReemplazar(); 
+                        	//tablaPaginas.set(pag, paginaReemplazar);
+                        	for (int i = 0; i < numPaginas;i++){
 	                    		if(tablaPaginas.get(i)== -404){
 	                    			tablaPaginas.set(pag, i);
-	                                paginasOcupadas++;}
-	                    	}
+	                                paginasOcupadas++;
+	                                break;
+	                                }
+	                    		}
                         }
                     }
                     algoritmo.marcarReferenciaPagina(tablaPaginas.get(pag),pagRef); //Se ajusta la pag al ser referenciada si se encuentra cargada
