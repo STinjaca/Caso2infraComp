@@ -49,18 +49,12 @@ public class TablaPaginas extends Thread {
                         if (paginasOcupadas == numMarcosP) {
                         	//escoger pagina a reemplazar con el algoritmo paginaReemplazar;
                         	int paginaReemplazar = algoritmo.pagAReemplazar(); 
-                        	tablaPaginas.set(tablaPaginas.indexOf(paginaReemplazar), -404); //deja de existir en la tabla
-                        	tablaPaginas.set(pag, paginaReemplazar); // a la pag nueva le doy su posición
+                        	//tablaPaginas.set(tablaPaginas.indexOf(paginaReemplazar), -404); //deja de existir en la tabla
+                        	tablaPaginas.set(paginaReemplazar, -404);
+                            tablaPaginas.set(pag, 1); // a la pag nueva le doy su posición
                         } else {
-                        	//int paginaReemplazar = algoritmo.pagAReemplazar(); 
-                        	//tablaPaginas.set(pag, paginaReemplazar);
-                        	for (int i = 0; i < numPaginas;i++){
-	                    		if(tablaPaginas.get(i)== -404){
-	                    			tablaPaginas.set(pag, i);
-	                                paginasOcupadas++;
-	                                break;
-	                                }
-	                    		}
+                        	tablaPaginas.set(pag,1);
+                            paginasOcupadas++;
                         }
                     }
                     algoritmo.marcarReferenciaPagina(tablaPaginas.get(pag),pagRef); //Se ajusta la pag al ser referenciada si se encuentra cargada

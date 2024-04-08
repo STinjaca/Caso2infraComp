@@ -7,7 +7,7 @@ public class ReemplazoNoUsada extends Thread{
     // Contructor algoritmo reemplazo menos reciente
 	public ReemplazoNoUsada(int numMarcosP) {
         this.marcosPagina = numMarcosP;
-        this.contadores = new int[marcosPagina][2];
+        this.contadores = new int[numMarcosP][2];
 	}
 
     // ActualizarContadores
@@ -21,31 +21,37 @@ public class ReemplazoNoUsada extends Thread{
 
     public void marcarReferenciaPagina(int indicePagina, String pagRef) {
         synchronized (contadores) {
-            if (pagRef == "R") {
+            if (pagRef.equals("R")) {
             	contadores[indicePagina][0] = 1;}
-            else if(pagRef == "W"){
-            	contadores[indicePagina][1] = 1;}	
+            else if(pagRef.equals("W")){
+            	contadores[indicePagina][0] = 1;
+                contadores[indicePagina][1] = 1;}	
         }
     }
 
     public int pagAReemplazar() {
     	synchronized (contadores) {
-            int lastPage = 0;
-            for (int i = 1; i < marcosPagina; i++) {
+            int[] candidato = new int[4];
+            for (int i = marcosPagina -1; i >= 0 ; i--) {
                 if (contadores[i][0]==0 && contadores[i][1]==0) {
-                    lastPage = i;
-                    break;
+                    candidato[0] = i+1;
                 }
-                else if(contadores[i][0]==0) {
-                	lastPage = i;
-                    break;
+                else if(contadores[i][0]==0 && contadores[i][1]==1) {
+                	candidato[1] = i+1;
                 }
-                else if(contadores[i][0]==0 && contadores[i][1]==1 ) {
-                	lastPage = i;
-                    break;
+                else if(contadores[i][0]==1 && contadores[i][1]==0 ) {
+                	candidato[2] = i+1;
+                }
+                else if(contadores[i][0]==1 && contadores[i][1]==1 ) {
+                	candidato[3] = i+1;
                 }
             }
-            return lastPage;
+            for(int i = 0; i<4;i++){
+                if(candidato[i] != 0){
+                    return candidato[i]-1;
+                }
+            }
+            return 0;
         }
     }
 
