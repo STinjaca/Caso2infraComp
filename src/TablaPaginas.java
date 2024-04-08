@@ -34,7 +34,13 @@ public class TablaPaginas extends Thread {
         try {
             String line;
             if ((line = br.readLine()) != null) {
-                if (line.startsWith("M[") || line.startsWith("F[") || line.startsWith("R[")) {
+                if (line.startsWith("NP")) {
+                    for (int i = 0; i < numPaginas; i++) {
+                    	tablaPaginas.add(-404);
+                    }
+                    paginasOcupadas = 0;
+                }
+                else if (line.startsWith("M[") || line.startsWith("F[") || line.startsWith("R[")) {
                     String[] parts = line.split(",");
                     int pag = Integer.parseInt(parts[1]);
                     String pagRef = parts[3];
@@ -72,6 +78,9 @@ public class TablaPaginas extends Thread {
                 Thread.currentThread().interrupt();
             }
         }
+        System.out.println("\nReferencias: " + numReferencias);
+        int hits = numReferencias-fallosPagina;
+        System.out.println("Hits: " + hits);
         System.out.println("Fallos: " + fallosPagina);
         System.exit(0);
     }
