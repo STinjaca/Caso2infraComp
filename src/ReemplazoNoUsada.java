@@ -1,27 +1,52 @@
 
 public class ReemplazoNoUsada extends Thread{
     private int marcosPagina;
-    private int[] contadores;
+    private int[][] contadores;
     
     
-    // Contructor método reemplazo
+    // Contructor algoritmo reemplazo menos reciente
 	public ReemplazoNoUsada(int numMarcosP) {
         this.marcosPagina = numMarcosP;
-        this.contadores = new int[marcosPagina];
+        this.contadores = new int[marcosPagina][2];
 	}
 
     // ActualizarContadores
     private void actualizarContadores() {
-    	//TODO
+        synchronized (contadores) {
+            for (int i = 0; i < marcosPagina; i++) {
+            	contadores[i][0]=0;
+            }
+        }
     }
 
-    public void marcarReferenciaPagina(int indicePagina) {
-    	//TODO
+    public void marcarReferenciaPagina(int indicePagina, String pagRef) {
+        synchronized (contadores) {
+            if (pagRef == "R") {
+            	contadores[indicePagina][0] = 1;}
+            else if(pagRef == "W"){
+            	contadores[indicePagina][1] = 1;}	
+        }
     }
 
     public int pagAReemplazar() {
-    	//TODO
-    	return 0;
+    	synchronized (contadores) {
+            int lastPage = 0;
+            for (int i = 1; i < marcosPagina; i++) {
+                if (contadores[i][0]==0 && contadores[i][1]==0) {
+                    lastPage = i;
+                    break;
+                }
+                else if(contadores[i][0]==0) {
+                	lastPage = i;
+                    break;
+                }
+                else if(contadores[i][0]==0 && contadores[i][1]==1 ) {
+                	lastPage = i;
+                    break;
+                }
+            }
+            return lastPage;
+        }
     }
 
     @Override

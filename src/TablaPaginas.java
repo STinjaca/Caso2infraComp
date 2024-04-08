@@ -37,6 +37,7 @@ public class TablaPaginas extends Thread {
                 if (line.startsWith("M[") || line.startsWith("F[") || line.startsWith("R[")) {
                     String[] parts = line.split(",");
                     int pag = Integer.parseInt(parts[1]);
+                    String pagRef = parts[3];
                     if (tablaPaginas.get(pag) == -404) {
                         fallosPagina++;
                         if (paginasOcupadas == numMarcosP) {
@@ -52,7 +53,7 @@ public class TablaPaginas extends Thread {
 	                    	}
                         }
                     }
-                    algoritmo.marcarReferenciaPagina(tablaPaginas.get(pag)); //Se ajusta la pag al ser referenciada si se encuentra cargada
+                    algoritmo.marcarReferenciaPagina(tablaPaginas.get(pag),pagRef); //Se ajusta la pag al ser referenciada si se encuentra cargada
                 }
             }
     
@@ -71,7 +72,7 @@ public class TablaPaginas extends Thread {
                 Thread.currentThread().interrupt();
             }
         }
-        //System.out.println("Fallos: " + fallosPagina);
+        System.out.println("Fallos: " + fallosPagina);
         System.exit(0);
     }
 }
