@@ -7,7 +7,7 @@ public class ReemplazoNoUsada extends Thread{
     // Contructor algoritmo reemplazo menos reciente
 	public ReemplazoNoUsada(int numMarcosP) {
         this.marcosPagina = numMarcosP;
-        this.contadores = new int[numMarcosP][2];
+        this.contadores = new int[numMarcosP][3];
 	}
 
     // ActualizarContadores
@@ -19,40 +19,50 @@ public class ReemplazoNoUsada extends Thread{
         }
     }
 
-    public void marcarReferenciaPagina(int indicePagina, String pagRef) {
+    public void marcarReferenciaPagina(int pR, int pV, String pagRef) {
         synchronized (contadores) {
+        	contadores[pR][2] = pV;
             if (pagRef.equals("R")) {
-            	contadores[indicePagina][0] = 1;}
+            	contadores[pR][0] = 1;}
             else if(pagRef.equals("W")){
-            	contadores[indicePagina][0] = 1;
-                contadores[indicePagina][1] = 1;}	
+            	contadores[pR][0] = 1;
+                contadores[pR][1] = 1;}	
         }
     }
 
-    public int pagAReemplazar() {
+    public int[] pagAReemplazar() {
+    	int[] result = new int[2];
     	synchronized (contadores) {
             for (int i = 0 ; i < marcosPagina ; i++) {
                 if (contadores[i][0]==0 && contadores[i][1]==0) {
-                    return i;
+                	result[0] = i;
+                	result[1] = contadores[i][2];
+                    return result;
                 }
             }
             for (int i = 0 ; i < marcosPagina ; i++) {
                 if (contadores[i][0]==0 && contadores[i][1]==1) {
-                    return i;
+                	result[0] = i;
+                	result[1] = contadores[i][2];
+                    return result;
                 }
             }
             for (int i = 0 ; i < marcosPagina ; i++) {
             	if(contadores[i][0]==1 && contadores[i][1]==0 ) {
-            		return i;
+            		result[0] = i;
+                	result[1] = contadores[i][2];
+                    return result;
                 }
             }
             for (int i = 0 ; i < marcosPagina ; i++) {
                 if(contadores[i][0]==1 && contadores[i][1]==1 ) {
-                	return i;
+                	result[0] = i;
+                	result[1] = contadores[i][2];
+                    return result;
                 }
             }
         }
-    	return 0;
+    	return result;
     }
 
     @Override
