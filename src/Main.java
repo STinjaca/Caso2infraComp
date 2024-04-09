@@ -72,7 +72,7 @@ public class Main {
             PrintWriter writer = new PrintWriter("doc/referencias.txt");
             writer.println("TP="+tamanoP);
             writer.println("NF="+numF);
-            writer.println("NF="+numC);
+            writer.println("NC="+numC);
             writer.println("NF_NC_Filtro="+3);
             
             // Filtro
