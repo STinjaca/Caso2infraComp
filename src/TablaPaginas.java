@@ -51,10 +51,12 @@ public class TablaPaginas extends Thread {
                         	int result[] = algoritmo.pagAReemplazar(); 
                         	int pagRemR = result[0];// pagina en memoria Real
                 			int pagRemV = result[1];// pagina en memoria Virtual
-                        	tablaPaginas.set(pagRemV, -404); //deja de existir en la tabla
-                            tablaPaginas.set(pag, pagRemR); // a la pag nueva le doy su posición
+                			synchronized (tablaPaginas) {
+                			tablaPaginas.set(pagRemV, -404); //deja de existir en la tabla
+                            tablaPaginas.set(pag, pagRemR);} // a la pag nueva le doy su posición
                         } else {
-                        	tablaPaginas.set(pag,paginasOcupadas);
+                        	synchronized (tablaPaginas) {
+                        	tablaPaginas.set(pag,paginasOcupadas);}
                             paginasOcupadas++;
                         }
                         
