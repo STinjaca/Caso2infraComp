@@ -31,38 +31,39 @@ public class ReemplazoNoUsada extends Thread{
     }
 
     public int[] pagAReemplazar() {
-    	int[] result = new int[2];
     	synchronized (contadores) {
+    		int[] result = new int[2];
+    		int clase = 4;
             for (int i = 0 ; i < marcosPagina ; i++) {
-                if (contadores[i][0]==0 && contadores[i][1]==0) {
+                if (clase > 0 && contadores[i][0]==0 && contadores[i][1]==0) {
                 	result[0] = i;
                 	result[1] = contadores[i][2];
-                    return result;
+                	return result;
                 }
-            }
-            for (int i = 0 ; i < marcosPagina ; i++) {
-                if (contadores[i][0]==0 && contadores[i][1]==1) {
+
+                if (clase > 1 && contadores[i][0]==0 && contadores[i][1]==1) {
                 	result[0] = i;
                 	result[1] = contadores[i][2];
-                    return result;
+                	clase = 1;
+
                 }
-            }
-            for (int i = 0 ; i < marcosPagina ; i++) {
-            	if(contadores[i][0]==1 && contadores[i][1]==0 ) {
+
+            	if(clase > 2 && contadores[i][0]==1 && contadores[i][1]==0 ) {
             		result[0] = i;
                 	result[1] = contadores[i][2];
-                    return result;
+                	clase = 2;
+
                 }
-            }
-            for (int i = 0 ; i < marcosPagina ; i++) {
-                if(contadores[i][0]==1 && contadores[i][1]==1 ) {
+
+                if(clase > 3 && contadores[i][0]==1 && contadores[i][1]==1 ) {
                 	result[0] = i;
                 	result[1] = contadores[i][2];
-                    return result;
+                	clase = 3;
+
                 }
             }
+            return result;
         }
-    	return result;
     }
 
     @Override

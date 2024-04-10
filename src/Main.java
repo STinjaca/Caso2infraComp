@@ -64,7 +64,7 @@ public class Main {
 
     public static void generarReferencias(int tamanoP, int numF, int numC) {
     	HashMap<String, String> referencias = new HashMap<String, String>();
-        int tR =  tamanoP/4;
+        int tamanoInt =  4;
         int despl = 0;
         int numP = 0;
         
@@ -79,7 +79,7 @@ public class Main {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                 	referencias.put("F[" + i + "][" + j + "]",numP + "," + despl);
-                    despl += tR;
+                    despl += tamanoInt;
                     if (despl >= tamanoP) {
                         numP++;
                         despl = 0;
@@ -91,7 +91,7 @@ public class Main {
             for (int i = 0; i < numF; i++) {
                 for (int j = 0; j < numC; j++) {
                 	referencias.put("M[" + i + "][" + j + "]",numP + "," + despl);
-                    despl += tR;
+                    despl += tamanoInt;
                     if (despl >= tamanoP) {
                         numP++;
                         despl = 0;
@@ -102,7 +102,7 @@ public class Main {
             for (int i = 0; i < numF; i++) {
                 for (int j = 0; j < numC; j++) {
                 	referencias.put("R[" + i + "][" + j + "]",numP + "," + despl);
-                    despl += tR;
+                    despl += tamanoInt;
                     if (despl >= tamanoP) {
                         numP++;
                         despl = 0;
